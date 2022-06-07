@@ -103,6 +103,14 @@ class FlQueryExecutionListener extends QueryExecutionListener with Logging {
         }
         )
       }
+      //开窗函数
+      case plan: Window => {
+        val windowExpressions=plan.windowExpressions
+        plan.windowExpressions.foreach(aggItem => {
+          extFieldProcess(aggItem)
+        }
+        )
+      }
       case plan: Project => {
         plan.projectList.toList.foreach {
           pojoItem => {
